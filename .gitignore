@@ -1,0 +1,5 @@
+# Material de terceros: queda solo en local (el repo es público)
+CarpetaPersonalMelany/
+
+# Metadatos que deja Windows al copiar archivos a WSL
+*:Zone.Identifier
