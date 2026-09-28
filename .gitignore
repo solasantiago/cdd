@@ -3,3 +3,8 @@ CarpetaPersonalMelany/
 
 # Metadatos que deja Windows al copiar archivos a WSL
 *:Zone.Identifier
+
+# Datos del classroom
+fuentes/
+# Estado y worktrees de Claude Code (local)
+.claude/
