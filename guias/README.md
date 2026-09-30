@@ -1,6 +1,6 @@
 # Comunicación de Datos: guía de estudio
 
-El libro de la materia, en el orden de la cursada 2026: un capítulo por TP, cada uno en su archivo. Cada bloque es un tipo de ejercicio o de pregunta que toman, con teoría mínima, un ejemplo real resuelto, un ejercicio guiado, práctica y un cierre para memorizar y autoevaluarte. Las respuestas están al final de cada capítulo. Para imprimir: `python3 guia-pdf.py [capítulos]` (queda en `guias/pdf/`).
+El libro de la materia, en el orden de la cursada 2026: un capítulo por TP, cada uno en su archivo. Cada bloque es un tipo de ejercicio o de pregunta que toman, con teoría mínima, un ejemplo real resuelto, un ejercicio guiado, práctica y un cierre para memorizar y autoevaluarte. Las respuestas están al final de cada capítulo. Para imprimir: `python3 guia-pdf.py` genera en `guias/pdf/` un PDF por capítulo y el índice (`CD-indice.pdf`).
 
 ## Índice
 
@@ -8,21 +8,21 @@ Las estrellas dicen cuánto aparece cada bloque en los parciales reales relevado
 - **Capítulos 1 a 6** (1er parcial): 8 parciales. Son los Temas 1 a 4 (Classroom, 2020), el 2020 2Q, el 2022 de Arroyo Arzubi, el del 08/10/2024 y el de esta cursada (28/09/2026, Tema B).
 - **Bloque 6.2 y capítulos 7 a 9** (2do parcial): 4 parciales. Son los Temas 1 y 2 de 2020, el 2022 de Arroyo Arzubi y el de 2023, del que solo se conoce el ejercicio de 16-QAM.
 
-📌 2026 marca lo que se tomó en el parcial de esta cursada.
+📌 marca lo que se tomó en el parcial de esta cursada (2026).
 
 | Capítulo | Bloque | Frecuencia | Estado |
 |---|---|:-:|---|
 | [1. Introducción a la teleinformática e Internet](cap-01-introduccion.md) (TP 1) | 1.1 Teleinformática, redes, OSI e Internet | ★★☆☆☆ (2 de 8) | listo |
-| [2. Transmisión de datos](cap-02-transmision.md) (TP 2) | 2.1 Velocidades, multinivel y sincronismo 📌 2026 | ★★★★☆ (5 de 8) | listo |
-| | 2.2 Fourier del tren de pulsos y ancho de banda 📌 2026 | ★★★★☆ (5 de 8) | listo |
+| [2. Transmisión de datos](cap-02-transmision.md) (TP 2) | 2.1 Velocidades, multinivel y sincronismo 📌 | ★★★★☆ (5 de 8) | listo |
+| | 2.2 Fourier del tren de pulsos y ancho de banda 📌 | ★★★★☆ (5 de 8) | listo |
 | | 2.3 Señales y modos de transmisión | ☆☆☆☆☆ (0 de 8) | listo |
-| [3. Cálculo de enlaces e interfaces](cap-03-enlace.md) (TP 3) | 3.1 Cálculo de enlace 📌 2026 | ★★★★★ (8 de 8) | listo |
+| [3. Cálculo de enlaces e interfaces](cap-03-enlace.md) (TP 3) | 3.1 Cálculo de enlace 📌 | ★★★★★ (8 de 8) | listo |
 | | 3.2 Interfaces de capa física | ★★☆☆☆ (2 de 8) | listo |
-| [4. Banda base y tasa de información](cap-04-banda-base.md) (TP 4) | 4.1 Códigos banda base 📌 2026 | ★★☆☆☆ (2 de 8) | listo |
+| [4. Banda base y tasa de información](cap-04-banda-base.md) (TP 4) | 4.1 Códigos banda base 📌 | ★★☆☆☆ (2 de 8) | listo |
 | | 4.2 Información, entropía y tasa de información | ★★★★☆ (5 de 8) | listo |
-| [5. Capacidad de los canales](cap-05-capacidad.md) (TP 5) | 5.1 Capacidad: Nyquist y Shannon 📌 2026 | ★★★★☆ (5 de 8) | listo |
+| [5. Capacidad de los canales](cap-05-capacidad.md) (TP 5) | 5.1 Capacidad: Nyquist y Shannon 📌 | ★★★★☆ (5 de 8) | listo |
 | | 5.2 Atenuación, distorsión y ruido | ☆☆☆☆☆ (0 de 8) | listo |
-| [6. Tratamiento de errores y protocolos](cap-06-errores.md) (TP 6) | 6.1 Detección y corrección de errores 📌 2026 | ★★☆☆☆ (3 de 8) | listo |
+| [6. Tratamiento de errores y protocolos](cap-06-errores.md) (TP 6) | 6.1 Detección y corrección de errores 📌 | ★★☆☆☆ (3 de 8) | listo |
 | | 6.2 Protocolos: conexión y calidad de servicio | ★★★☆☆ (2 de 4) | listo |
 | [7. Medios físicos](cap-07-medios.md) (TP 7) | 7.1 Medios de cobre: par trenzado y coaxil | ★★★☆☆ (2 de 4) | listo |
 | | 7.2 Fibra óptica | ★★★★☆ (3 de 4) | listo |

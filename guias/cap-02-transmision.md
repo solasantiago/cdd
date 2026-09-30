@@ -1,6 +1,6 @@
 # Capítulo 2: Transmisión de datos (TP 2)
 
-## 2.1 Velocidades, multinivel y sincronismo ★★★★☆ (5 de 8) 📌 2026
+## 2.1 Velocidades, multinivel y sincronismo ★★★★☆ (5 de 8) 📌
 
 Temas en Lumen: `u3-medidas-velocidad-bps-baudios`, `u3-transmision-multinivel-compresion-datos`, `u3-transmision-serie-paralelo-asincronica`
 
@@ -183,7 +183,7 @@ Sincronismo: de bit, de byte (asincrónica), de bloque (sincrónica)
 1. (Concepto) ¿Por qué el multinivel permite transmitir más rápido por el mismo canal? ¿Qué lo limita?
 2. (Ejercicio) Se transmite con FRP = 1200 pps, código polar RZ y 8 niveles. Calculá Vm, Vt y cuánto tarda un archivo de 9.000 bytes en transmisión sincrónica. (material propio)
 
-## 2.2 Fourier del tren de pulsos y ancho de banda ★★★★☆ (5 de 8) 📌 2026
+## 2.2 Fourier del tren de pulsos y ancho de banda ★★★★☆ (5 de 8) 📌
 
 Temas en Lumen: `u2-senales-periodicas-serie-fourier`, `u2-ancho-banda-efecto-sobre`
 

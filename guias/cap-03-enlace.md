@@ -1,6 +1,6 @@
 # Capítulo 3: Cálculo de enlaces e interfaces (TP 3)
 
-## 3.1 Cálculo de enlace ★★★★★ (8 de 8) 📌 2026
+## 3.1 Cálculo de enlace ★★★★★ (8 de 8) 📌
 
 Temas en Lumen: `u2-espectro-electromagnetico-unidades-medida`, `u2-transmision-medios-conductores-dielectricos`
 

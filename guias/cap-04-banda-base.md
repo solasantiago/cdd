@@ -1,6 +1,6 @@
 # Capítulo 4: Banda base y tasa de información (TP 4)
 
-## 4.1 Códigos banda base ★★☆☆☆ (2 de 8) 📌 2026
+## 4.1 Códigos banda base ★★☆☆☆ (2 de 8) 📌
 
 Temas en Lumen: `u2-transmision-banda-base`, `u2-codigos-banda-base-normalizados`
 

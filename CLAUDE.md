@@ -16,11 +16,13 @@ guias/              la guía de estudio: el libro de la materia, un archivo por 
   cap-NN-<tema>.md    un capítulo por TP, en el orden de la cursada
   estado.md           notas para el agente: dónde retomar y avance por bloque
   pdf/                PDFs generados para imprimir (fuera de git)
-guia-pdf.py         genera el PDF para imprimir (libro entero o por capítulos)
+guia-pdf.py         genera los PDF para imprimir (un PDF por capítulo y el índice)
 programa/           programa analítico e índice de fuentes del Classroom (classroom-practica.md)
 ```
 
 Fuera de git, solo en local: `fuentes/` (material descargado del Classroom) y `CarpetaPersonalMelany/` (material de otra persona: resúmenes, TPs y parciales de cursadas anteriores, libro de Castro-Fusario). El repo es público: usalas como consulta, pero no copies su contenido; lo que escribas a partir de ellas, redactalo con tus palabras.
+
+Los archivos que generes (por ejemplo, los PDF) van dentro del repo. No borres nada fuera del repo.
 
 No inventes contenido de la cátedra: si no está en las fuentes, preguntá o marcalo como material propio.
 
@@ -55,7 +57,7 @@ No planifiques horarios de estudio salvo que el estudiante lo pida.
 2. Actualizá `evidencia`: `ejercicios`, `autoevaluaciones`, `ultimo_repaso` (hoy), `proximo_repaso` y `minutos`.
 3. Agregá la sesión a `sesiones` (`fecha`, `minutos`, `tipo`, `temas`).
 4. Poné `actualizado` con la fecha y hora actuales (ISO 8601, -03:00).
-5. Validá y, si el estudiante está de acuerdo, hacé commit y push:
+5. Validá y, si el estudiante está de acuerdo, hacé commit y push. Si no hay `node` en el equipo, la Action del repo valida en cada push de `lumen.json`:
    ```bash
    curl -fsSL https://raw.githubusercontent.com/solasantiago/lumen/main/scripts/validar.mjs -o /tmp/validar-lumen.mjs
    node /tmp/validar-lumen.mjs lumen.json
@@ -73,7 +75,7 @@ README.md               índice con links, estrellas, modalidad del año y ruta 
 
 cap-NN-<tema>.md:
 # Capítulo N: <tema> (TP N)
-## N.1 <bloque> ★★★★☆ (3 de 8) 📌 2026
+## N.1 <bloque> ★★★★☆ (3 de 8) 📌
 Temas en Lumen: <ids>
 ### 1. Conceptos
 ### 2. Ejemplo resuelto (<fuente>)
@@ -85,7 +87,7 @@ Temas en Lumen: <ids>
 
 - **Capítulos** en el orden de la cursada, cada uno en su archivo (`cap-03-enlace.md`), no del programa analítico: en CD, uno por TP, según la planificación 2026 (`fuentes/PLANIFICACION20262C.doc`). Ojo: el material de 2020 numera los TP 8 y 9 al revés. La teoría de clase va en el capítulo del TP que la usa.
 - **Bloque** = un tipo de ejercicio o de pregunta que toman. Si un ejercicio mezcla temas de dos capítulos, el bloque va en el último.
-- **Estrellas** = 5 × (parciales reales en los que aparece ÷ parciales reales relevados), redondeado para arriba, con la cuenta al lado. Se cuenta contra los parciales de la evaluación que incluye el bloque (1eros para el 1er parcial, 2dos para el 2do). Si no hay parciales, se estima con los TPs y se aclara: `★★★☆☆ (estimado por TPs)`. `📌 2026` marca los bloques que se tomaron en una evaluación de la cursada actual: es la mejor pista de cómo toma la cátedra este año. La ruta de una evaluación va primero por lo marcado con 📌 y después de más a menos estrellas. El índice tiene una sección "Modalidad <año>" con cómo fue la última evaluación (ítems, puntaje, qué piden) y qué esperar de la próxima, aclarando que es una inferencia.
+- **Estrellas** = 5 × (parciales reales en los que aparece ÷ parciales reales relevados), redondeado para arriba, con la cuenta al lado. Se cuenta contra los parciales de la evaluación que incluye el bloque (1eros para el 1er parcial, 2dos para el 2do). Si no hay parciales, se estima con los TPs y se aclara: `★★★☆☆ (estimado por TPs)`. `📌` marca los bloques que se tomaron en una evaluación de la cursada actual (solo el pin, sin el año): es la mejor pista de cómo toma la cátedra este año. La ruta de una evaluación va primero por lo marcado con 📌 y después de más a menos estrellas. El índice tiene una sección "Modalidad <año>" con cómo fue la última evaluación (ítems, puntaje, qué piden) y qué esperar de la próxima, aclarando que es una inferencia.
 - **Temas en Lumen**: los ids de `lumen.json` que trabaja el bloque. Si ninguno corresponde, agregá uno siguiendo las reglas de `lumen.json`.
 
 **Cómo se escribe**
@@ -101,7 +103,7 @@ Temas en Lumen: <ids>
 
 **Salidas**
 
-- **PDF**: `python3 guia-pdf.py [capítulos...]` genera el libro entero (índice + capítulos con contenido) o los capítulos pedidos en `guias/pdf/`, con el Chrome de Windows en modo headless. Aplica los colores, renderiza el LaTeX con KaTeX, numera las páginas del lado de afuera, empieza cada capítulo, cada bloque y las respuestas en hoja nueva, y mantiene los títulos y las frases que presentan algo pegados a lo que sigue. Los ajustes de impresión van en el script, no en los `.md`. Revisá el resultado con `pdftotext` y `pdftoppm` antes de avisar.
+- **PDF**: `python3 guia-pdf.py [capítulos...]` sin argumentos genera un PDF por capítulo (`guias/pdf/CD-capNN.pdf`) y el índice (`CD-indice.pdf`, desde `guias/README.md`); con números, solo esos capítulos. Usa el Chrome de Windows en modo headless. Aplica los colores, renderiza el LaTeX con KaTeX, numera las páginas del lado de afuera, empieza cada capítulo, cada bloque y las respuestas en hoja nueva, y mantiene los títulos y las frases que presentan algo pegados a lo que sigue. Los ajustes de impresión van en el script, no en los `.md`. Revisá el resultado con `pdftotext` y `pdftoppm` antes de avisar.
 - **Voz**: el agente de voz trabaja sobre el `.md` del capítulo que se está estudiando (se adjunta tal cual; el PDF es solo para imprimir). Turnos de dos o tres oraciones; fórmulas dichas en palabras, también las que están en LaTeX; tablas como listas; nunca lee símbolos. Después de cada concepto hace una pregunta de control. En el guiado pide el valor antes de decirlo. Al terminar, deja escrito un cierre (bloques vistos, qué salió bien, qué costó) para pegar en Claude Code.
 
 **Registro en Lumen**

@@ -1,6 +1,6 @@
 # Capítulo 6: Tratamiento de errores (TP 6)
 
-## 6.1 Detección y corrección de errores ★★☆☆☆ (3 de 8) 📌 2026
+## 6.1 Detección y corrección de errores ★★☆☆☆ (3 de 8) 📌
 
 Temas en Lumen: `u6-tipos-errores-tasa-error`, `u6-deteccion-errores-paridad-crc`, `u6-correccion-errores-codigos-autocorrectores`
 

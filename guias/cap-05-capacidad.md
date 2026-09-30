@@ -1,6 +1,6 @@
 # Capítulo 5: Capacidad de los canales (TP 5)
 
-## 5.1 Capacidad: Nyquist y Shannon ★★★★☆ (5 de 8) 📌 2026
+## 5.1 Capacidad: Nyquist y Shannon ★★★★☆ (5 de 8) 📌
 
 Temas en Lumen: `u6-capacidad-canal-teorema-shannon`, `u5-capacidad-canal-tasa-informacion`, `u6-tipos-canales-ideales-reales`
 

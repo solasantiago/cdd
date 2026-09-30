@@ -3,9 +3,10 @@
 de página, cada capítulo y cada bloque en hoja nueva, y títulos que no quedan sueltos al pie.
 Usa el Chrome de Windows en modo headless y deja el PDF en guias/pdf/.
 
-  python3 guia-pdf.py                          libro entero (índice + capítulos con contenido)
-  python3 guia-pdf.py 3                        solo el capítulo 3
-  python3 guia-pdf.py 1 2 3 --nombre CD-rec    varios capítulos, con otro nombre
+  python3 guia-pdf.py          un PDF por cada capítulo con contenido (guias/pdf/<ABR>-capNN.pdf)
+                               y el índice (guias/pdf/<ABR>-indice.pdf, desde guias/README.md);
+                               <ABR> es la abreviatura de la materia en lumen.json
+  python3 guia-pdf.py 3 5      solo los capítulos 3 y 5, cada uno en su PDF
 """
 import json, re, shutil, subprocess, sys
 from pathlib import Path
@@ -14,6 +15,7 @@ REPO = Path(__file__).resolve().parent
 TMP_WIN = 'C:\\Users\\admin\\AppData\\Local\\Temp'
 TMP = Path('/mnt/c/Users/admin/AppData/Local/Temp')
 CHROME = '/mnt/c/Program Files/Google/Chrome/Application/chrome.exe'
+ABR = json.loads((REPO / 'lumen.json').read_text()).get('abreviatura', 'guia')
 
 CSS = r"""
 :root { --azul:#1d4e89; --azul-claro:#e8f0fa; --ambar:#b7791f; --ambar-claro:#fff8e1;
@@ -50,6 +52,11 @@ pre { font-family: "Cascadia Mono", Consolas, "Courier New", monospace; font-siz
       white-space: pre-wrap; break-inside: avoid; margin: 5pt 0 8pt; }
 .mate { margin: 6pt 0; break-inside: avoid; }
 .katex-display { overflow: visible !important; margin: 4pt 0; }
+/* en pantalla, el contenido mide lo mismo que en la hoja A4 (210 − 2 × 14 mm), para medir bien */
+@media screen { #c { width: 182mm; } }
+/* nada se sale del ancho del contenido (así Chrome no achica la página al imprimir) */
+html, body, #c, section { overflow-x: clip; }
+.katex svg { overflow: hidden; }
 .katex { font-size: 1.08em; }
 div.mate.formulas { background: var(--ambar-claro); border: 1pt solid var(--ambar); border-radius: 3pt; padding: 2pt 6pt; }
 pre.formulas { background: var(--ambar-claro); border: 1pt solid var(--ambar); }
@@ -79,9 +86,9 @@ let fuente = md.replace(/\$\$([\s\S]+?)\$\$/g, (m, tex) => '\n\n' + guardar(tex,
                .replace(/\$([^$\n]+?)\$/g, (m, tex) => guardar(tex, false));
 let html = marked.parse(fuente);
 html = html.replace(/<p>@@M(\d+)@@<\/p>/g, (m, i) =>
-  `<div class="mate">${katex.renderToString(mates[i].tex, {displayMode: true, throwOnError: false, strict: false})}</div>`);
+  `<div class="mate">${katex.renderToString(mates[i].tex, {displayMode: true, throwOnError: false, strict: false, output: 'html'})}</div>`);
 html = html.replace(/@@M(\d+)@@/g, (m, i) =>
-  katex.renderToString(mates[i].tex, {displayMode: mates[i].bloque, throwOnError: false, strict: false}));
+  katex.renderToString(mates[i].tex, {displayMode: mates[i].bloque, throwOnError: false, strict: false, output: 'html'}));
 return html;
 }
 const c = document.getElementById('c'); c.innerHTML = '';
@@ -163,6 +170,12 @@ for (const c0 of document.querySelectorAll('section')) {
 document.querySelectorAll('section.capitulo > .junto').forEach(j => {
   if (j.firstElementChild && j.firstElementChild.tagName === 'H2') j.style.breakBefore = 'page';
 });
+// una fórmula más ancha que la hoja se achica sola (si no, Chrome achica la página entera)
+document.querySelectorAll('.katex-display').forEach(d => {
+  const k = d.querySelector('.katex'); if (!k) return;
+  const w = k.scrollWidth, W = d.clientWidth;
+  if (w > W) k.style.fontSize = (0.97 * W / w).toFixed(3) + 'em';
+});
 // dentro del código: ✓, ✗ y espacios para completar
 document.querySelectorAll('pre code').forEach(c => {
   c.innerHTML = c.innerHTML
@@ -181,19 +194,7 @@ def tiene_contenido(p):
     return re.search(r'(?m)^## ', p.read_text()) is not None
 
 
-def main():
-    args = sys.argv[1:]
-    nombre = None
-    if '--nombre' in args:
-        i = args.index('--nombre'); nombre = args[i + 1]; del args[i:i + 2]
-    capitulos = [int(a) for a in args]
-    if capitulos:
-        archivos = [{'tipo': 'capitulo', 'md': capitulo(n).read_text()} for n in capitulos]
-    else:
-        archivos = [{'tipo': 'indice', 'md': (REPO / 'guias' / 'README.md').read_text()}]
-        archivos += [{'tipo': 'capitulo', 'md': p.read_text()}
-                     for p in sorted((REPO / 'guias').glob('cap-*.md')) if tiene_contenido(p)]
-    nombre = nombre or ('CD-guia' if not capitulos else 'CD-cap' + '-'.join(f'{n:02d}' for n in capitulos))
+def generar(archivos, nombre):
     html = f"""<!doctype html><html lang="es"><head><meta charset="utf-8"><title>{nombre}</title>
 <style>{CSS}</style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
@@ -215,6 +216,17 @@ def main():
     destino.parent.mkdir(exist_ok=True)
     shutil.move(str(TMP / f'{nombre}.pdf'), destino)
     print(destino)
+
+
+def main():
+    capitulos = [int(a) for a in sys.argv[1:]]
+    libro = not capitulos
+    if libro:
+        capitulos = [int(p.name[4:6]) for p in sorted((REPO / 'guias').glob('cap-*.md')) if tiene_contenido(p)]
+    for n in capitulos:
+        generar([{'tipo': 'capitulo', 'md': capitulo(n).read_text()}], f'{ABR}-cap{n:02d}')
+    if libro:
+        generar([{'tipo': 'indice', 'md': (REPO / 'guias' / 'README.md').read_text()}], f'{ABR}-indice')
 
 
 if __name__ == '__main__':
