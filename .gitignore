@@ -6,5 +6,9 @@ CarpetaPersonalMelany/
 
 # Datos del classroom
 fuentes/
+
 # Estado y worktrees de Claude Code (local)
 .claude/
+
+# PDFs generados de la guía (se regeneran con guia-pdf.py)
+guias/pdf/
